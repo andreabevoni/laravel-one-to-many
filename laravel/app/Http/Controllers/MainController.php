@@ -18,4 +18,15 @@ class MainController extends Controller
     $tasks = Task::all();
     return view('pages.task-index', compact('tasks'));
   }
+
+  public function empShow($id){
+	  $employee = Employee::findOrFail($id);
+	  return view('pages.emp-show', compact('employee'));
+  }
+
+  public function taskShow($id){
+    $task = Task::findOrFail($id);
+    return view('pages.task-show', compact('task'));
+  }
+
 }

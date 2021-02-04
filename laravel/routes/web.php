@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/emp-index', 'MainController@empIndex');
+Route::get('/emp-index', 'MainController@empIndex') -> name('emp-index');
 
-Route::get('/task-index', 'MainController@taskIndex');
+Route::get('/task-index', 'MainController@taskIndex') -> name('task-index');
+
+Route::get('/emp-show/{id}', 'MainController@empShow') -> name('emp-show');
+
+Route::get('/task-show/{id}', 'MainController@taskShow') -> name('task-show');
