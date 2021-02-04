@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/emp-index', 'MainController@empIndex');
+
+Route::get('/task-index', 'MainController@taskIndex');

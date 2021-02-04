@@ -13,4 +13,9 @@ class MainController extends Controller
     $employees = Employee::all();
     return view('pages.emp-index', compact('employees'));
   }
+
+  public function taskIndex() {
+    $tasks = Task::all();
+    return view('pages.task-index', compact('tasks'));
+  }
 }
