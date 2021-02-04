@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
     <script src="{{asset('/js/app.js')}}" charset="utf-8"></script>
-    <title></title>
+    <title>laravel-one-to-many</title>
   </head>
   <body>
 
