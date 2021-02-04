@@ -13,6 +13,8 @@
             {{$employee -> name}}
           </a>
 
+          <a href="{{route('emp-edit', $employee -> id)}}">EDIT</a>
+
           <ul>
             @foreach ($employee -> tasks as $task)
               <li>
