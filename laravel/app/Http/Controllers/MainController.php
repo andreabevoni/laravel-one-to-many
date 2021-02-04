@@ -29,4 +29,13 @@ class MainController extends Controller
     return view('pages.task-show', compact('task'));
   }
 
+  public function empCreate(){
+    return view('pages.emp-create');
+  }
+
+  public function empStore(Request $request){
+    Employee::create($request -> all());
+    return redirect() -> route('emp-index');
+  }
+
 }

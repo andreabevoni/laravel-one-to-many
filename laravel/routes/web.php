@@ -20,3 +20,7 @@ Route::get('/task-index', 'MainController@taskIndex') -> name('task-index');
 Route::get('/emp-show/{id}', 'MainController@empShow') -> name('emp-show');
 
 Route::get('/task-show/{id}', 'MainController@taskShow') -> name('task-show');
+
+Route::get('/emp-create', 'MainController@empCreate') -> name('emp-create');
+
+Route::post('/emp-store', 'MainController@empStore') -> name('emp-store');

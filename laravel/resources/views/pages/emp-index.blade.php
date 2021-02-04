@@ -4,6 +4,8 @@
 
   <h1>LISTA DIPENDENTI</h1>
 
+  <a href="{{route('emp-create')}}">Crea nuovo dipendente</a>
+
     <ul>
       @foreach ($employees as $employee)
         <li>
