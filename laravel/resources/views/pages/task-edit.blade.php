@@ -4,29 +4,35 @@
 
   <h2>Modifica compito</h2>
 
-  <form action="{{route('task-store')}}" method="post">
+  <form action="{{route('task-update', $task -> id)}}" method="post">
 
     @csrf
     @method('POST')
 
     <label for="title">Titolo</label>
-    <input type="text" name="title" value="">
+    <input type="text" name="title" value="{{$task -> title}}">
 
     <br>
 
     <label for="description">Descrizioner</label>
-    <input type="text" name="description" value="">
+    <input type="text" name="description" value="{{$task -> description}}">
 
     <br>
 
     <label for="priority">Prioritá (da 1 a 5)</label>
-    <input type="text" name="priority" value="">
+    <input type="text" name="priority" value="{{$task -> priority}}">
 
     <br>
 
     <select class="" name="employee_id">
       @foreach ($employees as $employee)
-        <option value="{{$employee -> id}}">{{$employee -> name}}</option>
+        <option value="{{$employee -> id}}"
+
+          @if ($employee -> id === $task -> employee_id)
+            selected
+          @endif
+
+        >{{$employee -> name}}</option>
       @endforeach
     </select>
 

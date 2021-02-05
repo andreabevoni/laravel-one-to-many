@@ -66,4 +66,19 @@ class MainController extends Controller
     return redirect() -> route('emp-index');
   }
 
+  public function taskEdit($id){
+    $task = Task::findOrFail($id);
+    $employees = Employee::all();
+    return view('pages.task-edit', compact('task', 'employees'));
+  }
+
+  public function taskUpdate(Request $request, $id){
+    $task = Task::findOrFail($id);
+    $task -> update($request -> all());
+    $employee = Employee::findOrFail($request -> get('employee_id'));
+    $task -> employee() -> associate($employee);
+    $task -> save();
+    return redirect() -> route('task-index');
+  }
+
 }
