@@ -16,26 +16,26 @@ class MainController extends Controller
     return view('pages.emp-index', compact('employees'));
   }
 
-  public function empShow($id){
+  public function empShow($id) {
 	  $employee = Employee::findOrFail($id);
 	  return view('pages.emp-show', compact('employee'));
   }
 
-  public function empCreate(){
+  public function empCreate() {
     return view('pages.emp-create');
   }
 
-  public function empStore(Request $request){
+  public function empStore(Request $request) {
     Employee::create($request -> all());
     return redirect() -> route('emp-index');
   }
 
-  public function empEdit($id){
+  public function empEdit($id) {
     $employee = Employee::findOrFail($id);
     return view('pages.emp-edit', compact('employee'));
   }
 
-  public function empUpdate(Request $request, $id){
+  public function empUpdate(Request $request, $id) {
     $employee = Employee::findOrFail($id);
     $employee -> update($request -> all());
     return redirect() -> route('emp-index');
@@ -47,17 +47,17 @@ class MainController extends Controller
     return view('pages.task-index', compact('tasks'));
   }
 
-  public function taskShow($id){
+  public function taskShow($id) {
     $task = Task::findOrFail($id);
     return view('pages.task-show', compact('task'));
   }
 
-  public function taskCreate(){
+  public function taskCreate() {
     $employees = Employee::all();
     return view('pages.task-create', compact('employees'));
   }
 
-  public function taskStore(Request $request){
+  public function taskStore(Request $request) {
     $task = Task::make($request -> all());
     $employee = Employee::findOrFail($request -> get('employee_id'));
     $task -> employee() -> associate($employee);
@@ -65,13 +65,13 @@ class MainController extends Controller
     return redirect() -> route('task-index');
   }
 
-  public function taskEdit($id){
+  public function taskEdit($id) {
     $task = Task::findOrFail($id);
     $employees = Employee::all();
     return view('pages.task-edit', compact('task', 'employees'));
   }
 
-  public function taskUpdate(Request $request, $id){
+  public function taskUpdate(Request $request, $id) {
     $task = Task::findOrFail($id);
     $task -> update($request -> all());
     $employee = Employee::findOrFail($request -> get('employee_id'));
