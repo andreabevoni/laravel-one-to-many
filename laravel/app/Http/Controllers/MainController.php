@@ -9,29 +9,18 @@ use App\Task;
 
 class MainController extends Controller
 {
-  // funzioni index
+
+  // EMPLOYEES
   public function empIndex() {
     $employees = Employee::all();
     return view('pages.emp-index', compact('employees'));
   }
 
-  public function taskIndex() {
-    $tasks = Task::all();
-    return view('pages.task-index', compact('tasks'));
-  }
-
-  // funzioni SHOW
   public function empShow($id){
 	  $employee = Employee::findOrFail($id);
 	  return view('pages.emp-show', compact('employee'));
   }
 
-  public function taskShow($id){
-    $task = Task::findOrFail($id);
-    return view('pages.task-show', compact('task'));
-  }
-
-  // funzioni CREATE + STORE
   public function empCreate(){
     return view('pages.emp-create');
   }
@@ -39,6 +28,28 @@ class MainController extends Controller
   public function empStore(Request $request){
     Employee::create($request -> all());
     return redirect() -> route('emp-index');
+  }
+
+  public function empEdit($id){
+    $employee = Employee::findOrFail($id);
+    return view('pages.emp-edit', compact('employee'));
+  }
+
+  public function empUpdate(Request $request, $id){
+    $employee = Employee::findOrFail($id);
+    $employee -> update($request -> all());
+    return redirect() -> route('emp-index');
+  }
+
+  // TASKS
+  public function taskIndex() {
+    $tasks = Task::all();
+    return view('pages.task-index', compact('tasks'));
+  }
+
+  public function taskShow($id){
+    $task = Task::findOrFail($id);
+    return view('pages.task-show', compact('task'));
   }
 
   public function taskCreate(){
@@ -52,18 +63,6 @@ class MainController extends Controller
     $task -> employee() -> associate($employee);
     $task -> save();
     return redirect() -> route('task-index');
-  }
-
-  // funzioni EDIT + UPDATE
-  public function empEdit($id){
-    $employee = Employee::findOrFail($id);
-    return view('pages.emp-edit', compact('employee'));
-  }
-
-  public function empUpdate(Request $request, $id){
-    $employee = Employee::findOrFail($id);
-    $employee -> update($request -> all());
-    return redirect() -> route('emp-index');
   }
 
   public function taskEdit($id){
