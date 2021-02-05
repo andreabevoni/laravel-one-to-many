@@ -2,6 +2,8 @@
 
 @section('section')
 
+  <a href="{{route('emp-index')}}">Torna a indice</a>  
+
   <h2>Modifica impiegato</h2>
 
   <form action="{{route('emp-update', $employee -> id)}}" method="post">

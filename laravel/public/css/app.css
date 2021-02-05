@@ -6,3 +6,7 @@ body a {
   color: red;
 }
 
+body .component {
+  margin: 20px 0;
+}
+

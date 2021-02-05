@@ -2,6 +2,8 @@
 
 @section('section')
 
+  <a href="{{route('home')}}">Torna alla homepage</a>
+
   <h1>LISTA DIPENDENTI</h1>
 
   <a href="{{route('emp-create')}}">Crea nuovo dipendente</a>
@@ -14,14 +16,6 @@
           </a>
 
           <a href="{{route('emp-edit', $employee -> id)}}">EDIT</a>
-
-          <ul>
-            @foreach ($employee -> tasks as $task)
-              <li>
-                {{$task -> title}}
-              </li>
-            @endforeach
-          </ul>
 
         </li>
       @endforeach

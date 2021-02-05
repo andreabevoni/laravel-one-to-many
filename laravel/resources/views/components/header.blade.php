@@ -1,3 +1,3 @@
-<div class="">
+<div class="component">
   HEADER
 </div>

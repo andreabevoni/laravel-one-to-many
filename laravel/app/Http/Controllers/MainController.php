@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Employee;
 use App\Task;
+use App\Typology;
 
 class MainController extends Controller
 {
+
+  public function home() {
+    return view('pages.home');
+  }
 
   // EMPLOYEES
   public function empIndex() {
@@ -78,6 +83,17 @@ class MainController extends Controller
     $task -> employee() -> associate($employee);
     $task -> save();
     return redirect() -> route('task-index');
+  }
+
+  // TYPOLOGIES
+  public function typoIndex() {
+    $typologies = Typology::all();
+    return view('pages.typo-index', compact('typologies'));
+  }
+
+  public function typoShow($id) {
+    $typology = Typology::findOrFail($id);
+    return view('pages.typo-show', compact('typology'));
   }
 
 }

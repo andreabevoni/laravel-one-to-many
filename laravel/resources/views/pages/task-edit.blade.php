@@ -2,6 +2,8 @@
 
 @section('section')
 
+  <a href="{{route('task-index')}}">Torna a indice</a>  
+
   <h2>Modifica compito</h2>
 
   <form action="{{route('task-update', $task -> id)}}" method="post">

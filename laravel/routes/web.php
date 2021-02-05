@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', 'MainController@home') -> name('home');
+
 // EMPLOYEES
 Route::get('/emp-index', 'MainController@empIndex') -> name('emp-index');
 Route::get('/emp-show/{id}', 'MainController@empShow') -> name('emp-show');
@@ -28,3 +30,7 @@ Route::get('/task-create', 'MainController@taskCreate') -> name('task-create');
 Route::post('/task-store', 'MainController@taskStore') -> name('task-store');
 Route::get('/task-edit/{id}', 'MainController@taskEdit') -> name('task-edit');
 Route::post('/task-update/{id}', 'MainController@taskUpdate') -> name('task-update');
+
+// TYPOLOGIES
+Route::get('/typo-index', 'MainController@typoIndex') -> name('typo-index');
+Route::get('/typo-show/{id}', 'MainController@typoShow') -> name('typo-show');
