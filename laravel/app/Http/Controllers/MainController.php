@@ -76,7 +76,8 @@ class MainController extends Controller
   public function taskEdit($id) {
     $task = Task::findOrFail($id);
     $employees = Employee::all();
-    return view('pages.task-edit', compact('task', 'employees'));
+    $typologies = Typology::all();
+    return view('pages.task-edit', compact('task', 'employees', 'typologies'));
   }
 
   public function taskUpdate(Request $request, $id) {
@@ -85,6 +86,14 @@ class MainController extends Controller
     $employee = Employee::findOrFail($request -> get('employee_id'));
     $task -> employee() -> associate($employee);
     $task -> save();
+
+    if (array_key_exists('typologies', $request -> all())) {
+      $typo = Typology::findOrFail($request -> get('typologies'));
+      $task -> typologies() -> sync($typo);
+    } else {
+      $task -> typologies() -> detach();
+    }
+
     return redirect() -> route('task-index');
   }
 

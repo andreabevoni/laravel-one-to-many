@@ -2,7 +2,7 @@
 
 @section('section')
 
-  <a href="{{route('task-index')}}">Torna a indice</a>  
+  <a href="{{route('task-index')}}">Torna a indice</a>
 
   <h2>Modifica compito</h2>
 
@@ -37,6 +37,25 @@
         >{{$employee -> name}}</option>
       @endforeach
     </select>
+
+    <br>
+    <br>
+
+    Tipologie collegate:
+    <br>
+    @foreach ($typologies as $typology)
+      <input type="checkbox" name="typologies[]" value="{{$typology -> id}}"
+
+        @if ($task -> typologies -> contains($typology -> id))
+          checked
+        @endif
+
+      >
+      {{$typology -> name}}
+      <br>
+    @endforeach
+
+    <br>
 
     <input type="submit" name="" value="Invia">
 
