@@ -59,7 +59,8 @@ class MainController extends Controller
 
   public function taskCreate() {
     $employees = Employee::all();
-    return view('pages.task-create', compact('employees'));
+    $typologies = Typology::all();
+    return view('pages.task-create', compact('employees', 'typologies'));
   }
 
   public function taskStore(Request $request) {
@@ -67,6 +68,8 @@ class MainController extends Controller
     $employee = Employee::findOrFail($request -> get('employee_id'));
     $task -> employee() -> associate($employee);
     $task -> save();
+    $typo = Typology::findOrFail($request -> get('typologies'));
+    $task -> typologies() -> attach($typo);
     return redirect() -> route('task-index');
   }
 

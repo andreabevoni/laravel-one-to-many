@@ -25,12 +25,24 @@
     <input type="text" name="priority" value="">
 
     <br>
+    <br>
 
     <select name="employee_id">
       @foreach ($employees as $employee)
         <option value="{{$employee -> id}}">{{$employee -> name}}</option>
       @endforeach
     </select>
+
+    <br>
+    <br>
+
+    Tipologie collegate:
+    <br>
+    @foreach ($typologies as $typology)
+      <input type="checkbox" name="typologies[]" value="{{$typology -> id}}">
+      {{$typology -> name}}
+      <br>
+    @endforeach
 
     <input type="submit" name="" value="Invia">
 
