@@ -96,4 +96,18 @@ class MainController extends Controller
     return view('pages.typo-show', compact('typology'));
   }
 
+  public function typoCreate() {
+    $tasks = Task::all();
+    return view('pages.typo-create', compact('tasks'));
+  }
+
+  public function typoStore(Request $request) {
+    $typology = Typology::create($request -> all());
+
+    $seltasks = Task::findOrFail($request -> get('tasks'));
+    $typology -> tasks() -> attach($seltasks);
+
+    return redirect() -> route('typo-index');
+  }
+
 }

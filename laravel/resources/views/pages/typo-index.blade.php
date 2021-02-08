@@ -6,6 +6,8 @@
 
   <h1>LISTA TIPOLOGIE</h1>
 
+  <a href="{{route('typo-create')}}">Crea nuova tipologia</a>
+
     <ul>
       @foreach ($typologies as $typology)
         <li>

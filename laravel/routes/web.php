@@ -34,3 +34,7 @@ Route::post('/task-update/{id}', 'MainController@taskUpdate') -> name('task-upda
 // TYPOLOGIES
 Route::get('/typo-index', 'MainController@typoIndex') -> name('typo-index');
 Route::get('/typo-show/{id}', 'MainController@typoShow') -> name('typo-show');
+Route::get('/typo-create', 'MainController@typoCreate') -> name('typo-create');
+Route::post('/typo-store', 'MainController@typoStore') -> name('typo-store');
+Route::get('/typo-edit/{id}', 'MainController@typoEdit') -> name('typo-edit');
+Route::post('/typo-update/{id}', 'MainController@typoUpdate') -> name('typo-update');

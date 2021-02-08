@@ -2,7 +2,7 @@
 
 @section('section')
 
-  <a href="{{route('task-index')}}">Torna a indice</a>  
+  <a href="{{route('task-index')}}">Torna a indice</a>
 
   <h2>Inserisci un nuovo compito</h2>
 
@@ -16,7 +16,7 @@
 
     <br>
 
-    <label for="description">Descrizioner</label>
+    <label for="description">Descrizione</label>
     <input type="text" name="description" value="">
 
     <br>
@@ -26,7 +26,7 @@
 
     <br>
 
-    <select class="" name="employee_id">
+    <select name="employee_id">
       @foreach ($employees as $employee)
         <option value="{{$employee -> id}}">{{$employee -> name}}</option>
       @endforeach
