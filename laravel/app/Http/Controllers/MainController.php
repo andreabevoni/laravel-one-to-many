@@ -103,9 +103,27 @@ class MainController extends Controller
 
   public function typoStore(Request $request) {
     $typology = Typology::create($request -> all());
-
     $seltasks = Task::findOrFail($request -> get('tasks'));
     $typology -> tasks() -> attach($seltasks);
+    return redirect() -> route('typo-index');
+  }
+
+  public function typoEdit($id) {
+    $typology = Typology::findOrFail($id);
+    $tasks = Task::all();
+    return view('pages.typo-edit', compact('typology', 'tasks'));
+  }
+
+  public function typoUpdate(Request $request, $id) {
+    $typology = Typology::findOrFail($id);
+    $typology -> update($request -> all());
+
+    if (array_key_exists('tasks', $request -> all())) {
+      $seltasks = Task::findOrFail($request -> get('tasks'));
+      $typology -> tasks() -> sync($seltasks);
+    } else {
+      $typology -> tasks() -> detach();
+    }
 
     return redirect() -> route('typo-index');
   }

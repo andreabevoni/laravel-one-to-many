@@ -14,6 +14,8 @@
           <a href="{{route('typo-show', $typology -> id)}}">
             {{$typology -> name}}
           </a>
+
+          <a href="{{route('typo-edit', $typology -> id)}}">EDIT</a>
         </li>
       @endforeach
     </ul>
