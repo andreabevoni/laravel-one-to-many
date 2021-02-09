@@ -37,7 +37,7 @@ class MainController extends Controller
     Validator::make($data, [
       'name' => 'required|string|min:3|max:50',
       'lastname' => 'required|string|min:3|max:50',
-      'dateOfBirth' => 'required|date'
+      'dateOfBirth' => 'required|date|before:2003-02-10'
     ]) -> validate();
 
     Employee::create($data);
@@ -54,7 +54,7 @@ class MainController extends Controller
     Validator::make($data, [
       'name' => 'required|string|min:3|max:50',
       'lastname' => 'required|string|min:3|max:50',
-      'dateOfBirth' => 'required|date'
+      'dateOfBirth' => 'required|date|before:2003-02-10'
     ]) -> validate();
 
     $employee = Employee::findOrFail($id);
@@ -150,8 +150,14 @@ class MainController extends Controller
   }
 
   public function typoStore(Request $request) {
-    $typology = Typology::create($request -> all());
-    $seltasks = Task::findOrFail($request -> get('tasks'));
+    $data = $request -> all();
+    Validator::make($data, [
+      'name' => 'required|string|min:5|max:100|unique:App\Typology,name',
+      'description' => 'required|string|min:10|max:500'
+    ]) -> validate();
+
+    $typology = Typology::create($data);
+    $seltasks = Task::findOrFail($data['tasks']);
     $typology -> tasks() -> attach($seltasks);
     return redirect() -> route('typo-index');
   }
@@ -163,11 +169,23 @@ class MainController extends Controller
   }
 
   public function typoUpdate(Request $request, $id) {
+    $data = $request -> all();
+    Validator::make($data, [
+      'name' => [
+        'required',
+        'string',
+        'min:5',
+        'max:100',
+        Rule::unique('typologies')->ignore($id)
+      ],
+      'description' => 'required|string|min:10|max:500',
+    ]) -> validate();
+
     $typology = Typology::findOrFail($id);
-    $typology -> update($request -> all());
+    $typology -> update($data);
 
     if (array_key_exists('tasks', $request -> all())) {
-      $seltasks = Task::findOrFail($request -> get('tasks'));
+      $seltasks = Task::findOrFail($data['tasks']);
       $typology -> tasks() -> sync($seltasks);
     } else {
       $typology -> tasks() -> detach();
