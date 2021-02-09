@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 use App\Employee;
 use App\Task;
@@ -34,8 +35,8 @@ class MainController extends Controller
   public function empStore(Request $request) {
     $data = $request -> all();
     Validator::make($data, [
-      'name' => 'required|min:3|max:50',
-      'lastname' => 'required|min:3|max:50',
+      'name' => 'required|string|min:3|max:50',
+      'lastname' => 'required|string|min:3|max:50',
       'dateOfBirth' => 'required|date'
     ]) -> validate();
 
@@ -51,8 +52,8 @@ class MainController extends Controller
   public function empUpdate(Request $request, $id) {
     $data = $request -> all();
     Validator::make($data, [
-      'name' => 'required|min:3|max:50',
-      'lastname' => 'required|min:3|max:50',
+      'name' => 'required|string|min:3|max:50',
+      'lastname' => 'required|string|min:3|max:50',
       'dateOfBirth' => 'required|date'
     ]) -> validate();
 
@@ -79,11 +80,18 @@ class MainController extends Controller
   }
 
   public function taskStore(Request $request) {
-    $task = Task::make($request -> all());
-    $employee = Employee::findOrFail($request -> get('employee_id'));
+    $data = $request -> all();
+    Validator::make($data, [
+      'title' => 'required|string|min:5|max:100|unique:App\Task,title',
+      'description' => 'required|string|min:10|max:500',
+      'priority' => 'required|integer|between:1,5'
+    ]) -> validate();
+
+    $task = Task::make($data);
+    $employee = Employee::findOrFail($data['employee_id']);
     $task -> employee() -> associate($employee);
     $task -> save();
-    $typo = Typology::findOrFail($request -> get('typologies'));
+    $typo = Typology::findOrFail($data['typologies']);
     $task -> typologies() -> attach($typo);
     return redirect() -> route('task-index');
   }
@@ -96,14 +104,27 @@ class MainController extends Controller
   }
 
   public function taskUpdate(Request $request, $id) {
+    $data = $request -> all();
+    Validator::make($data, [
+      'title' => [
+        'required',
+        'string',
+        'min:5',
+        'max:100',
+        Rule::unique('tasks')->ignore($id)
+      ],
+      'description' => 'required|string|min:10|max:500',
+      'priority' => 'required|integer|between:1,5'
+    ]) -> validate();
+
     $task = Task::findOrFail($id);
-    $task -> update($request -> all());
-    $employee = Employee::findOrFail($request -> get('employee_id'));
+    $task -> update($data);
+    $employee = Employee::findOrFail($data['employee_id']);
     $task -> employee() -> associate($employee);
     $task -> save();
 
-    if (array_key_exists('typologies', $request -> all())) {
-      $typo = Typology::findOrFail($request -> get('typologies'));
+    if (array_key_exists('typologies', $data)) {
+      $typo = Typology::findOrFail($data['typologies']);
       $task -> typologies() -> sync($typo);
     } else {
       $task -> typologies() -> detach();
