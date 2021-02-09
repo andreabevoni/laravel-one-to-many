@@ -6,6 +6,14 @@
 
   <h2>Inserisci una nuova tipologia</h2>
 
+  @if ($errors->any())
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  @endif
+
   <form action="{{route('typo-store')}}" method="post">
 
     @csrf

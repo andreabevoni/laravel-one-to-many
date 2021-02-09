@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Task::class, function (Faker $faker) {
     return [
-      'title' => $faker->word,
+      'title' => $faker->unique()->word,
       'description' => $faker->text,
       'priority' => rand(1,5),
     ];

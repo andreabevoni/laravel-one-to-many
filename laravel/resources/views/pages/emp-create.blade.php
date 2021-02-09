@@ -3,8 +3,16 @@
 @section('section')
 
   <a href="{{route('emp-index')}}">Torna a indice</a>
-  
+
   <h2>Inserisci un nuovo impiegato</h2>
+
+  @if ($errors->any())
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  @endif
 
   <form action="{{route('emp-store')}}" method="post">
 

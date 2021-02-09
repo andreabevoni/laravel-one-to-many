@@ -6,6 +6,14 @@
 
   <h2>Inserisci un nuovo compito</h2>
 
+  @if ($errors->any())
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  @endif
+
   <form action="{{route('task-store')}}" method="post">
 
     @csrf

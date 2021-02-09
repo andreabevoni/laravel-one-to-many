@@ -14,10 +14,10 @@ class TypologySeeder extends Seeder
      */
     public function run()
     {
-      factory(Typology::class, 50)
+      factory(Typology::class, 10)
         -> create()
         -> each(function($typology) {
-            $tasks = Task::inRandomOrder() -> limit(5) -> get();
+            $tasks = Task::inRandomOrder() -> limit(rand(0,10)) -> get();
             $typology -> tasks() -> attach($tasks);
         });
     }

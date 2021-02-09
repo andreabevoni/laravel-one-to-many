@@ -2,9 +2,17 @@
 
 @section('section')
 
-  <a href="{{route('emp-index')}}">Torna a indice</a>  
+  <a href="{{route('emp-index')}}">Torna a indice</a>
 
   <h2>Modifica impiegato</h2>
+
+  @if ($errors->any())
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  @endif
 
   <form action="{{route('emp-update', $employee -> id)}}" method="post">
 

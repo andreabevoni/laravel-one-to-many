@@ -6,6 +6,14 @@
 
   <h2>Modifica tipologia</h2>
 
+  @if ($errors->any())
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  @endif
+
   <form action="{{route('typo-update', $typology -> id)}}" method="post">
 
     @csrf

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Employee;
 use App\Task;
@@ -31,7 +32,14 @@ class MainController extends Controller
   }
 
   public function empStore(Request $request) {
-    Employee::create($request -> all());
+    $data = $request -> all();
+    Validator::make($data, [
+      'name' => 'required|min:3|max:50',
+      'lastname' => 'required|min:3|max:50',
+      'dateOfBirth' => 'required|date'
+    ]) -> validate();
+
+    Employee::create($data);
     return redirect() -> route('emp-index');
   }
 
@@ -41,8 +49,15 @@ class MainController extends Controller
   }
 
   public function empUpdate(Request $request, $id) {
+    $data = $request -> all();
+    Validator::make($data, [
+      'name' => 'required|min:3|max:50',
+      'lastname' => 'required|min:3|max:50',
+      'dateOfBirth' => 'required|date'
+    ]) -> validate();
+
     $employee = Employee::findOrFail($id);
-    $employee -> update($request -> all());
+    $employee -> update($data);
     return redirect() -> route('emp-index');
   }
 
